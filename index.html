@@ -6,34 +6,91 @@
     <title>Alleyfind</title>
     <style>
         body {
-            background-color: #e0f7e9; /* Light green background */
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
+            background-color: #f6f6f6;
         }
         .header {
+            background-color: #ffffff;
+            padding: 1em;
+            border-bottom: 1px solid #a7d7f9;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .site-title {
+            font-size: 1.8em;
+            color: #0645ad;
+            text-decoration: none;
+        }
+        .search-container {
             display: flex;
-            align-items: center;
-            padding: 10px;
-            background-color: #2e7d32; /* Dark green header */
+            justify-content: center;
+            margin: 2em 0;
         }
-        .logo {
-            color: white;
-            font-size: 24px;
-            margin-right: 20px;
+        .search-box {
+            width: 50%;
+            padding: 0.5em;
+            font-size: 1em;
+            border: 1px solid #a2a9b1;
+            border-radius: 4px;
         }
-        .search-bar {
-            flex-grow: 1;
+        .discover-label {
+            margin-left: 1em;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .suggestions {
+            margin-top: 1em;
+            background-color: #ffffff;
+            border: 1px solid #a2a9b1;
+            border-radius: 4px;
+            max-width: 50%;
+            margin: 0 auto;
+            padding: 1em;
+            display: none;
+        }
+        .suggestion-item {
+            padding: 0.5em 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+        .suggestion-item a {
+            color: #0645ad;
+            text-decoration: none;
+        }
+        .suggestion-item a:hover {
+            text-decoration: underline;
         }
     </style>
+    <script>
+        function showSuggestions() {
+            const input = document.getElementById('search-box').value.toLowerCase();
+            const suggestions = document.getElementById('suggestions');
+            const articles = [
+                { title: 'Smallpox', link: '#smallpox' },
+                { title: 'Help: What Is AllePedia and Alleyfind', link: '#help' }
+            ];
+            const filtered = articles.filter(article => article.title.toLowerCase().includes(input));
+            suggestions.innerHTML = filtered.map(article => `<div class="suggestion-item"><a href="${article.link}">${article.title}</a></div>`).join('');
+            suggestions.style.display = filtered.length ? 'block' : 'none';
+        }
+    </script>
 </head>
 <body>
     <div class="header">
-        <div class="logo">Alleyfind</div>
-        <div class="search-bar">
-            <script async src="https://cse.google.com/cse.js?cx=40c050021b1c9490a"></script>
-            <div class="gcse-search"></div>
-        </div>
+        <a href="#" class="site-title">Alleyfind</a>
     </div>
+    
+    <div class="search-container">
+        <input type="text" id="search-box" class="search-box" placeholder="Search..." oninput="showSuggestions()">
+        <span class="discover-label">Discover in AllePedia (BETA)</span>
+    </div>
+    
+    <div id="suggestions" class="suggestions"></div>
 </body>
 </html>
