@@ -19,65 +19,150 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .site-title {
             font-size: 1.8em;
             color: #0645ad;
             text-decoration: none;
         }
+        .search-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2em 0;
+        }
         .search-container {
             display: flex;
             justify-content: center;
-            margin: 2em 0;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+            gap: 1em;
         }
         .search-box {
-            width: 50%;
-            padding: 0.5em;
+            width: 60%;
+            padding: 0.8em;
             font-size: 1em;
             border: 1px solid #a2a9b1;
             border-radius: 4px;
         }
+        .search-button {
+            padding: 0.8em 1.5em;
+            background-color: #0645ad;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-button:hover {
+            background-color: #052c6e;
+        }
         .discover-label {
-            margin-left: 1em;
+            margin-top: 0.5em;
             font-size: 0.9em;
             color: #666;
         }
-        .suggestions {
-            margin-top: 1em;
+        .content-area {
+            display: flex;
+            margin: 2em auto;
+            max-width: 1200px;
+            gap: 2em;
+        }
+        .results-container {
+            flex: 2;
             background-color: #ffffff;
             border: 1px solid #a2a9b1;
             border-radius: 4px;
-            max-width: 50%;
-            margin: 0 auto;
             padding: 1em;
-            display: none;
         }
-        .suggestion-item {
-            padding: 0.5em 0;
+        .allepedia-results {
+            flex: 1;
+            background-color: #ffffff;
+            border: 1px solid #a2a9b1;
+            border-radius: 4px;
+            padding: 1em;
+        }
+        .result-item {
+            padding: 1em;
             border-bottom: 1px solid #eaeaea;
         }
-        .suggestion-item:last-child {
+        .result-item:last-child {
             border-bottom: none;
         }
-        .suggestion-item a {
+        .result-title {
             color: #0645ad;
             text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 500;
         }
-        .suggestion-item a:hover {
+        .result-title:hover {
             text-decoration: underline;
+        }
+        .result-snippet {
+            color: #444;
+            font-size: 0.9em;
+            margin-top: 0.5em;
+        }
+        .result-url {
+            color: #006621;
+            font-size: 0.8em;
+            margin-top: 0.3em;
+        }
+        .section-title {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 1em;
+            padding-bottom: 0.5em;
+            border-bottom: 2px solid #0645ad;
         }
     </style>
     <script>
-        function showSuggestions() {
-            const input = document.getElementById('search-box').value.toLowerCase();
-            const suggestions = document.getElementById('suggestions');
-            const articles = [
-                { title: 'Smallpox', link: '#smallpox' },
-                { title: 'Help: What Is AllePedia and Alleyfind', link: '#help' }
-            ];
-            const filtered = articles.filter(article => article.title.toLowerCase().includes(input));
-            suggestions.innerHTML = filtered.map(article => `<div class="suggestion-item"><a href="${article.link}">${article.title}</a></div>`).join('');
-            suggestions.style.display = filtered.length ? 'block' : 'none';
+        function performSearch() {
+            const query = document.getElementById('search-box').value;
+            const resultsContainer = document.getElementById('google-results');
+            const allepediaResults = document.getElementById('allepedia-results');
+            
+            // Simulate Google search results
+            resultsContainer.innerHTML = `
+                <div class="result-item">
+                    <a href="https://example.com/result1" class="result-title">Search Result for: ${query}</a>
+                    <div class="result-snippet">
+                        This is a sample search result description that matches your query for "${query}". 
+                        Click to learn more about this topic.
+                    </div>
+                    <div class="result-url">https://example.com/result1</div>
+                </div>
+                <div class="result-item">
+                    <a href="https://example.com/result2" class="result-title">Another Related Result</a>
+                    <div class="result-snippet">
+                        Here's another relevant result for your search about "${query}". 
+                        This result provides additional information.
+                    </div>
+                    <div class="result-url">https://example.com/result2</div>
+                </div>
+            `;
+
+            // Simulate AllePedia results
+            allepediaResults.innerHTML = `
+                <div class="result-item">
+                    <a href="#smallpox" class="result-title">Smallpox Article</a>
+                    <div class="result-snippet">
+                        Comprehensive information about smallpox from AllePedia.
+                    </div>
+                </div>
+                <div class="result-item">
+                    <a href="#help" class="result-title">Help: What Is AllePedia</a>
+                    <div class="result-snippet">
+                        Learn more about AllePedia and how to use it effectively.
+                    </div>
+                </div>
+            `;
+
+            // Show the content area
+            document.getElementById('content-area').style.display = 'flex';
         }
     </script>
 </head>
@@ -86,11 +171,23 @@
         <a href="#" class="site-title">Alleyfind</a>
     </div>
     
-    <div class="search-container">
-        <input type="text" id="search-box" class="search-box" placeholder="Search..." oninput="showSuggestions()">
-        <span class="discover-label">Discover in AllePedia (BETA)</span>
+    <div class="search-section">
+        <div class="search-container">
+            <input type="text" id="search-box" class="search-box" placeholder="Search...">
+            <button onclick="performSearch()" class="search-button">Search</button>
+        </div>
+        <div class="discover-label">Discover in AllePedia (BETA)</div>
     </div>
-    
-    <div id="suggestions" class="suggestions"></div>
+
+    <div id="content-area" class="content-area" style="display: none;">
+        <div class="results-container">
+            <div class="section-title">Search Results</div>
+            <div id="google-results"></div>
+        </div>
+        <div class="allepedia-results">
+            <div class="section-title">AllePedia Results</div>
+            <div id="allepedia-results"></div>
+        </div>
+    </div>
 </body>
 </html>
