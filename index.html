@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alleyfind</title>
+    <title>Alleyfind with Ads</title>
     <script async src="https://cse.google.com/cse.js?cx=40c050021b1c9490a"></script>
     <style>
         body {
@@ -12,10 +12,27 @@
             margin: 0;
             padding: 20px;
             background-color: #f6f6f6;
+            display: flex;
+            justify-content: center;
+        }
+        .main-container {
+            display: flex;
+            max-width: 1400px;
+            width: 100%;
+        }
+        .ad-column {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            margin: 0 10px;
+            height: 600px;
         }
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            flex: 3;
             display: flex;
             gap: 20px;
         }
@@ -90,71 +107,36 @@
             border-radius: 24px !important;
             padding: 8px 16px !important;
         }
+        .allepedia-search {
+            margin-bottom: 20px;
+        }
+        .allepedia-search input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .allepedia-search button {
+            padding: 10px;
+            background-color: #1a0dab;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .allepedia-search button:hover {
+            background-color: #0c3c8c;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="search-column">
-            <div class="header">
-                <a href="/" class="logo">Alleyfind</a>
-            </div>
-            <!-- Google Custom Search Element -->
-            <div class="gcse-search"></div>
+    <div class="main-container">
+        <div class="ad-column" id="left-ad">
+            <!-- Left Ad Placeholder -->
         </div>
-        
-        <div class="allepedia-column">
-            <h2>AllePedia Results</h2>
-            <div class="allepedia-results" id="allepedia-results">
-                <!-- AllePedia results will be dynamically populated here -->
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Function to update AllePedia results based on search
-        function updateAllepediaResults(query) {
-            const allepediaResults = document.getElementById('allepedia-results');
-            
-            // Sample AllePedia results - in a real implementation, this would fetch from your actual database
-            const results = [
-                {
-                    title: "Related AllePedia Article 1",
-                    url: "/allepedia/article1",
-                    snippet: "Relevant information from AllePedia about " + query
-                },
-                {
-                    title: "Related AllePedia Article 2",
-                    url: "/allepedia/article2",
-                    snippet: "More information related to " + query
-                }
-            ];
-
-            // Clear existing results
-            allepediaResults.innerHTML = '';
-
-            // Add new results
-            results.forEach(result => {
-                const resultElement = document.createElement('div');
-                resultElement.className = 'allepedia-result';
-                resultElement.innerHTML = `
-                    <a href="${result.url}">${result.title}</a>
-                    <p>${result.snippet}</p>
-                `;
-                allepediaResults.appendChild(resultElement);
-            });
-        }
-
-        // Listen for Google Custom Search events
-        window.addEventListener('load', function() {
-            if (typeof google !== 'undefined') {
-                google.search.cse.element.on('result', function(event) {
-                    if (event.result) {
-                        // Update AllePedia results when Google search results are displayed
-                        updateAllepediaResults(event.result.searchTerms);
-                    }
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+        <div class="container">
+            <div class="search-column">
+                <div class="header">
+                    <a href="/" class="logo">Alleyfind</a>
+                </div>
+                <!-- Google Custom Search Element
