@@ -3,133 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alleyfind with Google CSE</title>
+    <title>Alleyfind</title>
+    <script async src="https://cse.google.com/cse.js?cx=40c050021b1c9490a"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             margin: 0;
-            padding: 0;
+            padding: 20px;
             background-color: #f6f6f6;
         }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+        .search-column {
+            flex: 2;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .allepedia-column {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
         .header {
-            background-color: #ffffff;
-            padding: 1em;
-            border-bottom: 1px solid #a7d7f9;
-            position: sticky;
-            top: 0;
-            z-index: 100;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 20px;
         }
-        .site-title {
-            font-size: 1.8em;
-            color: #0645ad;
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a0dab;
             text-decoration: none;
-        }
-        .search-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 2em 0;
-        }
-        .search-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            max-width: 800px;
-            gap: 1em;
-        }
-        .search-box {
-            width: 60%;
-            padding: 0.8em;
-            font-size: 1em;
-            border: 1px solid #a2a9b1;
-            border-radius: 4px;
-        }
-        .search-button {
-            padding: 0.8em 1.5em;
-            background-color: #0645ad;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .search-button:hover {
-            background-color: #052c6e;
-        }
-        .discover-label {
-            margin-top: 0.5em;
-            font-size: 0.9em;
-            color: #666;
-        }
-        .content-area {
-            display: flex;
-            margin: 2em auto;
-            max-width: 1200px;
-            gap: 2em;
-        }
-        .results-container {
-            flex: 2;
-            background-color: #ffffff;
-            border: 1px solid #a2a9b1;
-            border-radius: 4px;
-            padding: 1em;
         }
         .allepedia-results {
-            flex: 1;
-            background-color: #ffffff;
-            border: 1px solid #a2a9b1;
-            border-radius: 4px;
-            padding: 1em;
+            margin-top: 20px;
         }
-        .result-item {
-            padding: 1em;
-            border-bottom: 1px solid #eaeaea;
+        .allepedia-result {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
         }
-        .result-item:last-child {
+        .allepedia-result:last-child {
             border-bottom: none;
         }
-        .result-title {
-            color: #0645ad;
+        .allepedia-result a {
+            color: #1a0dab;
             text-decoration: none;
-            font-size: 1.1em;
             font-weight: 500;
         }
-        .result-title:hover {
+        .allepedia-result a:hover {
             text-decoration: underline;
         }
-        .result-snippet {
-            color: #444;
-            font-size: 0.9em;
-            margin-top: 0.5em;
+        .allepedia-result p {
+            color: #4d5156;
+            font-size: 14px;
+            margin: 5px 0;
         }
-        .result-url {
-            color: #006621;
-            font-size: 0.8em;
-            margin-top: 0.3em;
+        h2 {
+            color: #202124;
+            font-size: 20px;
+            margin-bottom: 15px;
         }
-        .section-title {
-            font-size: 1.2em;
-            color: #333;
-            margin-bottom: 1em;
-            padding-bottom: 0.5em;
-            border-bottom: 2px solid #0645ad;
+        .gcse-search {
+            max-width: 100%;
+        }
+        /* Custom styles for Google Custom Search */
+        .gsc-control-cse {
+            padding: 0 !important;
+            border: none !important;
+            background-color: transparent !important;
+        }
+        .gsc-input-box {
+            border-radius: 24px !important;
+        }
+        .gsc-search-button-v2 {
+            border-radius: 24px !important;
+            padding: 8px 16px !important;
         }
     </style>
-    <script async src="https://cse.google.com/cse.js?cx=40c050021b1c9490a"></script>
 </head>
 <body>
-    <div class="header">
-        <a href="#" class="site-title">Alleyfind</a>
-    </div>
-    
-    <div class="search-section">
-        <div class="search-container">
-            <input type="text" id="search-box" class="search-box" placeholder="Search...">
-            <button onclick="performSearch()" class="search-button">Search</button>
+    <div class="container">
+        <div class="search-column">
+            <div class="header">
+                <a href="/" class="logo">Alleyfind</a>
+            </div>
+            <!-- Google Custom Search Element -->
+            <div class="gcse-search"></div>
         </div>
-        <div class="discover-label">Discover in AllePedia (BETA)</div>
-    </
+        
+        <div class="allepedia-column">
+            <h2>AllePedia Results</h2>
+            <div class="allepedia-results" id="allepedia-results">
+                <!-- AllePedia results will be dynamically populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to update AllePedia results based on search
+        function updateAllepediaResults(query) {
+            const allepediaResults = document.getElementById('allepedia-results');
+            
+            // Sample AllePedia results - in a real implementation, this would fetch from your actual database
+            const results = [
+                {
+                    title: "Related AllePedia Article 1",
+                    url: "/allepedia/article1",
+                    snippet: "Relevant information from AllePedia about " + query
+                },
+                {
+                    title: "Related AllePedia Article 2",
+                    url: "/allepedia/article2",
+                    snippet: "More information related to " + query
+                }
+            ];
+
+            // Clear existing results
+            allepediaResults.innerHTML = '';
+
+            // Add new results
+            results.forEach(result => {
+                const resultElement = document.createElement('div');
+                resultElement.className = 'allepedia-result';
+                resultElement.innerHTML = `
+                    <a href="${result.url}">${result.title}</a>
+                    <p>${result.snippet}</p>
+                `;
+                allepediaResults.appendChild(resultElement);
+            });
+        }
+
+        // Listen for Google Custom Search events
+        window.addEventListener('load', function() {
+            if (typeof google !== 'undefined') {
+                google.search.cse.element.on('result', function(event) {
+                    if (event.result) {
+                        // Update AllePedia results when Google search results are displayed
+                        updateAllepediaResults(event.result.searchTerms);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
